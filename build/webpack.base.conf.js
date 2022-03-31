@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const Config = require('webpack-chain');
 const config = new Config();
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { babelRules, cssRules } = require('./webpack.rules.conf');
 
 //
 const resolve = (file) => path.resolve(__dirname, file);
@@ -22,7 +24,31 @@ function environment({ config }) {
 
     config
       .plugin('env')
-      .use(webpack.DefinePlugin, [{ ...env }])
+        .use(webpack.DefinePlugin, [{ ...env }])
+        .end()
+  }
+}
+
+function htmlWebpackPlugin({ config, resolve }) {
+  return () => {
+    const options = {
+      template: resolve('../public/index.html'),
+      filename: 'index.html',
+      title: 'webpack5+vue3',
+      minify: {
+        html5: true, // 根據 HTML5 規範
+        collapseWhitespace: true, // 摺疊空白
+        preserveLineBreaks: false,
+        minifyCSS: true, // 壓縮內部 CSS
+        minifyJS: true, // 壓縮內部 js
+        removeComments: false // 移除註解
+      }
+    }
+
+    config
+      .plugin('html-template')
+        .use(HtmlWebpackPlugin, [options])
+        .end()
   }
 }
 
@@ -36,5 +62,11 @@ config
     .filename('[name].bundle.js')
 
 environment({ config })(envMode);
+htmlWebpackPlugin({ config, resolve })();
+
+babelRules({ config });
+cssRules({ config });
+
+console.log(config.toConfig());
 
 module.exports = config.toConfig();
