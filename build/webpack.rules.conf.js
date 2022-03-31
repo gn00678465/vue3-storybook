@@ -27,3 +27,11 @@ module.exports.cssRules = ({ config }) => {
       .loader('sass-loader')
       .end()
 }
+
+module.exports.imageRules = ({ config }) => {
+  config.module
+    .rule('image')
+    .test(/\.(png|jpg|svg|gif)$/)
+    .type('asset/resource')
+    .set('generator', { filename: 'assets/[hash:8].[name][ext]' })
+}

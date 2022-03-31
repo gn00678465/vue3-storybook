@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const Config = require('webpack-chain');
 const config = new Config();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { babelRules, cssRules } = require('./webpack.rules.conf');
+const { babelRules, cssRules, imageRules } = require('./webpack.rules.conf');
 
 //
 const resolve = (file) => path.resolve(__dirname, file);
@@ -72,6 +72,7 @@ htmlWebpackPlugin({ config, resolve })();
 
 babelRules({ config });
 cssRules({ config });
+imageRules({ config });
 
 // console.log(config.toConfig());
 
