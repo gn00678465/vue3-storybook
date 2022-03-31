@@ -1,3 +1,5 @@
+const MiniCssExtractPlugin  =require('mini-css-extract-plugin');
+
 module.exports.babelRules = ({ config }) => {
   config.module
     .rule('babel')
@@ -11,12 +13,19 @@ module.exports.babelRules = ({ config }) => {
 }
 
 module.exports.cssRules = ({ config }) => {
-  config.module
+  return (prodMode) => {
+    config.module
+      .rule('css')
+      .test(/\.(css|scss|sass)$/)
+      .when(
+        !prodMode,
+        (config) => config.use('style-loader').loader('style-loader').end(),
+        (config) => config.use('mini-css').loader(MiniCssExtractPlugin.loader).options({ publicPath: '../' }).end()
+      )
+
+    config.module
     .rule('css')
     .test(/\.(css|scss|sass)$/)
-    .use('style-loader')
-      .loader('style-loader')
-      .end()
     .use('css-loader')
       .loader('css-loader')
       .end()
@@ -26,6 +35,7 @@ module.exports.cssRules = ({ config }) => {
     .use('sass-loader')
       .loader('sass-loader')
       .end()
+  }
 }
 
 module.exports.imageRules = ({ config }) => {

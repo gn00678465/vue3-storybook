@@ -72,9 +72,9 @@ environment({ config })(envMode);
 htmlWebpackPlugin({ config, resolve })();
 
 babelRules({ config });
-cssRules({ config });
+cssRules({ config })(envMode);
 imageRules({ config });
 
-// console.log(config.toConfig());
+// console.log(config.toConfig().module.rules[1]);
 
 module.exports = config.toConfig();
