@@ -61,12 +61,18 @@ config
     .path(resolve('../dist'))
     .filename('[name].bundle.js')
 
+// Config resolve alias
+config.resolve.alias
+  .set('@', resolve('../src'))
+  .set('assets', resolve('../src/assets/'))
+  .set('utils', resolve('../src/utils/'))
+
 environment({ config })(envMode);
 htmlWebpackPlugin({ config, resolve })();
 
 babelRules({ config });
 cssRules({ config });
 
-console.log(config.toConfig());
+// console.log(config.toConfig());
 
 module.exports = config.toConfig();
