@@ -60,6 +60,7 @@ config
   .output
     .path(resolve('../dist'))
     .filename('[name].bundle.js')
+    .set('clean', true)
 
 // Config resolve alias
 config.resolve.alias
