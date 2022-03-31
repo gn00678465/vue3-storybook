@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "serve": "cross-env envMode=dev webpack serve --c ./build/webpack.dev.conf.js --color",
-    "build": "cross-env envMode=prod webpack --config ./build/webpack.base.conf.js --color",
+    "build": "cross-env envMode=prod webpack --config ./build/webpack.prod.conf.js --color",
     "build:test": "cross-env envMode=test webpack --config ./build/webpack.prod.config.js --color",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

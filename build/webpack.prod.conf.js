@@ -1,6 +1,24 @@
+// base
+const { baseConfig, resolve } = require('./webpack.base.conf');
+// copy
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+// compress css
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
+// compress js
 const TerserPlugin = require("terser-webpack-plugin");
+
+function setCache({ config, resolve }) {
+  return () => {
+    const options = {
+      type: 'filesystem',
+      buildDependencies: {
+        config: [__filename]
+      }
+    };
+
+    config.cache(options);
+  }
+}
 
 function copyWebpack({ config, resolve }) {
   return () => {
@@ -11,7 +29,7 @@ function copyWebpack({ config, resolve }) {
         globOptions: {
           dot: true,
           gitignore: true,
-          ignore: ["**/index.html*"],
+          ignore: ["**/index.html"],
         }
       }]
     };
@@ -51,8 +69,44 @@ function minimizer({ config, resolve }) {
     };
 
     config.optimization
+      .minimize(true)
       .minimizer('mini-js')
         .use(TerserPlugin, [options])
         .end()
   }
 }
+
+function setSplitChucks({ config, resolve }) {
+  return () => {
+    const options = {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+					name: 'vendors',
+					chunks: 'all',
+        }
+      }
+    };
+
+    config.optimization
+      .splitChunks(options)
+  }
+}
+
+const config = baseConfig(true);
+
+// config
+config.mode('production');
+config.output
+  .publicPath('./')
+  .set('clean', true);
+
+setCache({ config, resolve })();
+copyWebpack({ config, resolve })();
+miniCssExtract({ config })();
+minimizer({ config })();
+setSplitChucks({ config })();
+
+console.log(config.toConfig());
+
+module.exports = config.toConfig();

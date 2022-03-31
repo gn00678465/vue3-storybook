@@ -11,8 +11,8 @@ const { VueLoaderPlugin } = require('vue-loader/dist/index');
 const resolve = (file) => path.resolve(__dirname, file);
 const envMode = process.env.envMode;
 
-function environment({ config }) {
-  return (envMode) => {
+function environment({ config, resolve }) {
+  return () => {
     require('dotenv').config({ path: `.env.${envMode}`});
     // regexp VUE_APP_
     const prefixRE = /^VUE_APP_/;
@@ -54,7 +54,7 @@ function htmlWebpackPlugin({ config, resolve }) {
   }
 }
 
-function vueLoaderPlugin({ config }) {
+function vueLoaderPlugin({ config, resolve }) {
   return () => {
     config
       .plugin('vue')
@@ -63,33 +63,62 @@ function vueLoaderPlugin({ config }) {
   }
 }
 
-// entry
-config
+// // entry
+// config
+//   .entry('index')
+//     .add(resolve('../src/main.js'))
+//     .end()
+//   .output
+//     .path(resolve('../dist'))
+//     .filename('[name].bundle.js')
+
+// // Config resolve alias
+// config.resolve.alias
+//   .set('@', resolve('../src'))
+//   .set('assets', resolve('../src/assets/'))
+//   .set('utils', resolve('../src/utils/'))
+
+// // plugin
+// environment({ config, resolve })();
+// htmlWebpackPlugin({ config, resolve })();
+// vueLoaderPlugin({ config, resolve })();
+
+// // modules rules
+// babelRules({ config });
+// cssRules({ config })();
+// imageRules({ config });
+// vueRules({ config });
+
+// module.exports = { config, resolve };
+
+module.exports.baseConfig = function(prodMode) {
+  // entry
+  config
   .entry('index')
     .add(resolve('../src/main.js'))
     .end()
   .output
     .path(resolve('../dist'))
     .filename('[name].bundle.js')
-    .set('clean', true)
 
-// Config resolve alias
-config.resolve.alias
+  // Config resolve alias
+  config.resolve.alias
   .set('@', resolve('../src'))
   .set('assets', resolve('../src/assets/'))
   .set('utils', resolve('../src/utils/'))
 
-// plugin
-environment({ config })(envMode);
-htmlWebpackPlugin({ config, resolve })();
-vueLoaderPlugin({ config })();
+  // plugin
+  environment({ config, resolve })();
+  htmlWebpackPlugin({ config, resolve })();
+  vueLoaderPlugin({ config, resolve })();
 
-// modules rules
-babelRules({ config });
-cssRules({ config })();
-imageRules({ config });
-vueRules({ config });
+  // modules rules
+  babelRules({ config });
+  cssRules({ config })(prodMode);
+  imageRules({ config });
+  vueRules({ config });
 
-// console.log(config.toConfig().module.rules);
+  return config;
+};
 
-module.exports = config.toConfig();
+module.exports.resolve = resolve;
