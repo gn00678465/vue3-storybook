@@ -2,8 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const Config = require('webpack-chain');
 const config = new Config();
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { babelRules, cssRules, imageRules, vueRules } = require('./webpack.rules.conf');
+// plugin
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader/dist/index');
 
 //
