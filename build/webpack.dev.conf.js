@@ -1,7 +1,21 @@
 // base
 const { baseConfig, resolve } = require('./webpack.base.conf');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = baseConfig(false);
+
+function bundleAnalyzer({ config, resolve }) {
+  return () => {
+    const options = {
+      analyzerPort: 8889
+    };
+
+    config
+      .plugin('bundle-analyzer')
+        .use(BundleAnalyzerPlugin, [options])
+        .end()
+  }
+};
 
 // config
 config.mode('development')
@@ -16,6 +30,6 @@ config.devServer
   .hot(true)
   .historyApiFallback(true);
 
-  // console.log(config.toConfig());
+bundleAnalyzer({ config, resolve })();
 
 module.exports = config.toConfig();
