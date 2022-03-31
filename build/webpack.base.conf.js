@@ -11,7 +11,7 @@ const { VueLoaderPlugin } = require('vue-loader/dist/index');
 const resolve = (file) => path.resolve(__dirname, file);
 const envMode = process.env.envMode;
 
-function environment({ config, resolve }) {
+function environment({ config }) {
   return () => {
     require('dotenv').config({ path: `.env.${envMode}`});
     // regexp VUE_APP_
@@ -26,9 +26,9 @@ function environment({ config, resolve }) {
 
     config
       .plugin('env')
-        .use(webpack.DefinePlugin, [{ ...env }])
-        .end()
-  }
+      .use(webpack.DefinePlugin, [{ ...env }])
+      .end();
+  };
 }
 
 function htmlWebpackPlugin({ config, resolve }) {
@@ -45,67 +45,39 @@ function htmlWebpackPlugin({ config, resolve }) {
         minifyJS: true, // 壓縮內部 js
         removeComments: false // 移除註解
       }
-    }
+    };
 
     config
       .plugin('html-template')
-        .use(HtmlWebpackPlugin, [options])
-        .end()
-  }
+      .use(HtmlWebpackPlugin, [options])
+      .end();
+  };
 }
 
-function vueLoaderPlugin({ config, resolve }) {
+function vueLoaderPlugin({ config }) {
   return () => {
     config
       .plugin('vue')
       .use(VueLoaderPlugin)
-      .end()
-  }
+      .end();
+  };
 }
-
-// // entry
-// config
-//   .entry('index')
-//     .add(resolve('../src/main.js'))
-//     .end()
-//   .output
-//     .path(resolve('../dist'))
-//     .filename('[name].bundle.js')
-
-// // Config resolve alias
-// config.resolve.alias
-//   .set('@', resolve('../src'))
-//   .set('assets', resolve('../src/assets/'))
-//   .set('utils', resolve('../src/utils/'))
-
-// // plugin
-// environment({ config, resolve })();
-// htmlWebpackPlugin({ config, resolve })();
-// vueLoaderPlugin({ config, resolve })();
-
-// // modules rules
-// babelRules({ config });
-// cssRules({ config })();
-// imageRules({ config });
-// vueRules({ config });
-
-// module.exports = { config, resolve };
 
 module.exports.baseConfig = function(prodMode) {
   // entry
   config
-  .entry('index')
+    .entry('index')
     .add(resolve('../src/main.js'))
     .end()
-  .output
+    .output
     .path(resolve('../dist'))
-    .filename('[name].bundle.js')
+    .filename('[name].bundle.js');
 
   // Config resolve alias
   config.resolve.alias
-  .set('@', resolve('../src'))
-  .set('assets', resolve('../src/assets/'))
-  .set('utils', resolve('../src/utils/'))
+    .set('@', resolve('../src'))
+    .set('assets', resolve('../src/assets/'))
+    .set('utils', resolve('../src/utils/'));
 
   // plugin
   environment({ config, resolve })();

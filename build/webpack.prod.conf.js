@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // compress css
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
 // compress js
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 function setCache({ config, resolve }) {
   return () => {
@@ -17,31 +17,31 @@ function setCache({ config, resolve }) {
     };
 
     config.cache(options);
-  }
+  };
 }
 
 function copyWebpack({ config, resolve }) {
   return () => {
     const options = {
       patterns: [{
-        from: resolve("../public"),
+        from: resolve('../public'),
         to: './',
         globOptions: {
           dot: true,
           gitignore: true,
-          ignore: ["**/index.html"],
+          ignore: ['**/index.html'],
         }
       }]
     };
 
     config
       .plugin('copy-webpack')
-        .use(CopyWebpackPlugin, [options])
-        .end()
-  }
+      .use(CopyWebpackPlugin, [options])
+      .end();
+  };
 }
 
-function miniCssExtract({ config, resolve }) {
+function miniCssExtract({ config }) {
   return () => {
     const options = {
       filename: './css/[name].[contenthash].css',
@@ -50,12 +50,12 @@ function miniCssExtract({ config, resolve }) {
 
     config
       .plugin('mini-css-extract')
-        .use(MiniCssExtractPlugin, [options])
-        .end()
-  }
+      .use(MiniCssExtractPlugin, [options])
+      .end();
+  };
 }
 
-function minimizer({ config, resolve }) {
+function minimizer({ config }) {
   return () => {
     const options = {
       parallel: true,
@@ -71,26 +71,26 @@ function minimizer({ config, resolve }) {
     config.optimization
       .minimize(true)
       .minimizer('mini-js')
-        .use(TerserPlugin, [options])
-        .end()
-  }
+      .use(TerserPlugin, [options])
+      .end();
+  };
 }
 
-function setSplitChucks({ config, resolve }) {
+function setSplitChucks({ config }) {
   return () => {
     const options = {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-					name: 'vendors',
-					chunks: 'all',
+          name: 'vendors',
+          chunks: 'all',
         }
       }
     };
 
     config.optimization
-      .splitChunks(options)
-  }
+      .splitChunks(options);
+  };
 }
 
 const config = baseConfig(true);

@@ -4,7 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const config = baseConfig(false);
 
-function bundleAnalyzer({ config, resolve }) {
+function bundleAnalyzer({ config }) {
   return () => {
     const options = {
       analyzerPort: 8889
@@ -12,10 +12,10 @@ function bundleAnalyzer({ config, resolve }) {
 
     config
       .plugin('bundle-analyzer')
-        .use(BundleAnalyzerPlugin, [options])
-        .end()
-  }
-};
+      .use(BundleAnalyzerPlugin, [options])
+      .end();
+  };
+}
 
 // config
 config.mode('development')

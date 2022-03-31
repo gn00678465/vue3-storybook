@@ -12,9 +12,9 @@ export default defineComponent({
 
     return {
       title
-    }
+    };
   }
-})
+});
 </script>
 <style scoped>
 .title{
