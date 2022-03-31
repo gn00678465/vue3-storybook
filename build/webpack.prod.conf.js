@@ -107,6 +107,4 @@ miniCssExtract({ config })();
 minimizer({ config })();
 setSplitChucks({ config })();
 
-console.log(config.toConfig());
-
 module.exports = config.toConfig();
