@@ -45,3 +45,12 @@ module.exports.imageRules = ({ config }) => {
     .type('asset/resource')
     .set('generator', { filename: 'assets/[hash:8].[name][ext]' })
 }
+
+module.exports.vueRules = ({ config }) => {
+  config.module
+    .rule('vue')
+    .test(/\.vue$/)
+    .use('vue-loader')
+      .loader('vue-loader')
+      .end()
+}

@@ -3,7 +3,8 @@ const webpack = require('webpack');
 const Config = require('webpack-chain');
 const config = new Config();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { babelRules, cssRules, imageRules } = require('./webpack.rules.conf');
+const { babelRules, cssRules, imageRules, vueRules } = require('./webpack.rules.conf');
+const { VueLoaderPlugin } = require('vue-loader/dist/index');
 
 //
 const resolve = (file) => path.resolve(__dirname, file);
@@ -52,6 +53,15 @@ function htmlWebpackPlugin({ config, resolve }) {
   }
 }
 
+function vueLoaderPlugin({ config }) {
+  return () => {
+    config
+      .plugin('vue')
+      .use(VueLoaderPlugin)
+      .end()
+  }
+}
+
 // entry
 config
   .entry('index')
@@ -68,13 +78,17 @@ config.resolve.alias
   .set('assets', resolve('../src/assets/'))
   .set('utils', resolve('../src/utils/'))
 
+// plugin
 environment({ config })(envMode);
 htmlWebpackPlugin({ config, resolve })();
+vueLoaderPlugin({ config })();
 
+// modules rules
 babelRules({ config });
-cssRules({ config })(envMode);
+cssRules({ config })();
 imageRules({ config });
+vueRules({ config });
 
-// console.log(config.toConfig().module.rules[1]);
+// console.log(config.toConfig().module.rules);
 
 module.exports = config.toConfig();
