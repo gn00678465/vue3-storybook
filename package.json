@@ -1,0 +1,30 @@
+{
+  "name": "vue3-storybook",
+  "version": "1.0.0",
+  "description": "base on webpack5 + vue3 + storybook",
+  "main": "main.js",
+  "scripts": {
+    "serve": "cross-env envMode=dev webpack serve --c ./build/webpack.dev.conf.js --color",
+    "build": "cross-env envMode=prod webpack --config ./build/webpack.base.conf.js --color",
+    "build:test": "cross-env envMode=test webpack --config ./build/webpack.prod.config.js --color",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "vue3",
+    "storybook"
+  ],
+  "author": "madao",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^3.2.31"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "webpack": "^5.70.0",
+    "webpack-chain": "^6.5.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  }
+}
