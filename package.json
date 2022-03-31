@@ -7,7 +7,9 @@
     "serve": "cross-env envMode=dev webpack serve --config ./build/webpack.dev.conf.js --color",
     "build": "cross-env envMode=prod webpack --config ./build/webpack.prod.conf.js --color",
     "build:test": "cross-env envMode=test webpack --config ./build/webpack.prod.config.js --color",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [
     "webpack",
@@ -23,6 +25,12 @@
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/builder-webpack5": "^6.4.19",
+    "@storybook/manager-webpack5": "^6.4.19",
+    "@storybook/vue3": "^6.4.19",
     "@vue/compiler-sfc": "^3.2.31",
     "autoprefixer": "^10.4.4",
     "babel-loader": "^8.2.4",
@@ -40,7 +48,7 @@
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.1",
-    "vue-loader": "^17.0.0",
+    "vue-loader": "^16.8.3",
     "webpack": "^5.70.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
