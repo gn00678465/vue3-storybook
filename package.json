@@ -17,9 +17,13 @@
   "author": "madao",
   "license": "ISC",
   "dependencies": {
+    "core-js": "^3.21.1",
     "vue": "^3.2.31"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.4",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "webpack": "^5.70.0",
