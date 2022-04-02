@@ -32,7 +32,7 @@
     "workspace": "💼",
     "vetur": ""
   },
-  "prettier.disableLanguages": [],
+  // "prettier.disableLanguages": [],
 
   // html
   "html.format.wrapLineLength": 120,
