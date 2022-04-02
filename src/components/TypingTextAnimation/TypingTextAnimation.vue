@@ -1,3 +1,4 @@
+<script>
 import './style.scss';
 import { h, computed, defineComponent, ref, onMounted } from 'vue';
 
@@ -99,3 +100,4 @@ export default defineComponent({
     ]);
   }
 });
+</script>
