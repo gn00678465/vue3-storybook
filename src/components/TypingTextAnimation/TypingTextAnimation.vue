@@ -1,6 +1,7 @@
 <script>
 import './style.scss';
 import { h, computed, defineComponent, ref, onMounted } from 'vue';
+import { increment, decrement, setRef, getRef, pipe } from '@/utils/functional.js';
 
 export default defineComponent({
   name: 'TypingTextAnimation',
@@ -51,9 +52,9 @@ export default defineComponent({
 
     function type() {
       if(charIndex.value < textArray.value[textArrayIndex.value].length) {
-        if(!isTyping.value) isTyping.value = true;
+        if(!isTyping.value) setRef(isTyping)(true);
         textContent.value += textArray.value[textArrayIndex.value].charAt(charIndex.value);
-        charIndex.value++;
+        pipe(getRef, increment, setRef(charIndex))(charIndex);
         setTimeout(type, context.duration);
       }
       else {
@@ -63,14 +64,14 @@ export default defineComponent({
     }
     function erase() {
       if(charIndex.value > 0) {
-        if(!isTyping.value) isTyping.value = true;
+        if(!isTyping.value) setRef(isTyping)(true);
         textContent.value = textArray.value[textArrayIndex.value].substring(0, charIndex.value - 1);
-        charIndex.value--;
+        pipe(getRef, decrement, setRef(charIndex))(charIndex);
         setTimeout(erase, context.duration);
       }
       else {
-        isTyping.value = false;
-        textArrayIndex.value++;
+        setRef(isTyping)(false);
+        pipe(getRef, increment, setRef(charIndex))(textArrayIndex);
         if(textArrayIndex.value >= textArray.value.length) textArrayIndex.value = 0;
         setTimeout(type, context.duration + 1100);
       }
