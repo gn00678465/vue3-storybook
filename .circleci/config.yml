@@ -15,8 +15,8 @@ jobs: # a collection of steps
           name: Check Node.js version
           command: node -v
       - run:
-          name: corepack enable
-          command: corepack enable
+          name: Install yarn
+          command: "curl -o- -L https://yarnpkg.com/install.sh | bash"
       - run:
           name: Install dependencies if needed
           command: |
