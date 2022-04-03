@@ -1,28 +1,25 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="https://vuejs.org/images/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <p class="title">{{title}}</p>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent, ref } from 'vue';
 
-export default {
-  name: 'App',
+export default defineComponent({
   components: {
-    HelloWorld
-  }
-}
-</script>
+  },
+  setup() {
+    const title = ref('Vue.js');
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    return {
+      title
+    };
+  }
+});
+</script>
+<style scoped>
+.title{
+    color: #000;
 }
 </style>
