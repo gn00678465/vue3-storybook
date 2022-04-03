@@ -16,7 +16,7 @@ jobs: # a collection of steps
           command: node -v
       - run:
           name: corepack enable
-          command: "corepack enable"
+          command: corepack enable
       - run:
           name: Install dependencies if needed
           command: |
