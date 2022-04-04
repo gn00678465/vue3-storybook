@@ -27,4 +27,4 @@ describe('functional.js', () => {
     const a = ref(null);
     expect(setRef(a)('ref value').value).toEqual('ref value');
   });
-})
+});

@@ -3,15 +3,20 @@ module.exports = {
     'browser': true,
     'es2021': true,
     'node': true,
-    "jest/globals": true
+    'jest/globals': true
   },
   'extends': [
-    'eslint:recommended',
-    'plugin:vue/essential'
+    // 'eslint:recommended',
+    // 'plugin:vue/essential'
+    'plugin:vue/vue3-recommended',
+    'prettier',
   ],
   'parserOptions': {
     'ecmaVersion': 'latest',
-    'sourceType': 'module'
+    'sourceType': 'module',
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   'plugins': [
     'vue',

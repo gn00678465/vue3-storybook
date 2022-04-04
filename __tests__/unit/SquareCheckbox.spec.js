@@ -1,4 +1,4 @@
-import { screen, logRoles } from '@testing-library/dom'
+import { screen, logRoles } from '@testing-library/dom';
 import { render, fireEvent } from '@testing-library/vue';
 import SquareCheckbox from '@/components/SquareCheckbox/SquareCheckbox.vue';
 
@@ -31,7 +31,7 @@ describe('SquareCheckbox.vue', () => {
         icon: '<div data-testid="slot-element">icon</div>',
       }
     });
-    const slotElm = screen.getByTestId('slot-element')
+    const slotElm = screen.getByTestId('slot-element');
     expect(slotElm).toBeInTheDocument;
   });
 
@@ -40,7 +40,7 @@ describe('SquareCheckbox.vue', () => {
     });
     const checkbox = screen.getByRole('checkbox', { name: 'Checkbox' });
     fireEvent.click(checkbox);
-    expect(emitted().input).toBeTruthy()
-    expect(emitted()['on-change']).toBeTruthy()
-  })
+    expect(emitted().input).toBeTruthy();
+    expect(emitted()['on-change']).toBeTruthy();
+  });
 });
