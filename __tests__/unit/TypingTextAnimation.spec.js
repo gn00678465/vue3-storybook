@@ -1,4 +1,4 @@
-import { screen, logRoles } from '@testing-library/dom'
+import { screen, logRoles } from '@testing-library/dom';
 import { render, fireEvent } from '@testing-library/vue';
 import TypingTextAnimation from '@/components/TypingTextAnimation/TypingTextAnimation.vue';
 
