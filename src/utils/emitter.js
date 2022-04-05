@@ -17,7 +17,6 @@ function dispatch(componentName, eventName, params) {
     }
   };
   if(parent) {
-    // parent.emit.apply(parent, [eventName].concat(params));
     eventBus.$emit(eventName, ...params);
   }
 }

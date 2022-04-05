@@ -19,17 +19,16 @@ export default {
   setup(context, { slots, expose }) {
     const instance = getCurrentInstance();
 
-    const parent = ref(null);
-
     const panel = reactive({
+      parent: null,
       innerName: computed(() => {
         return context.name || Math.random().toString(32).substr(2);
       }),
       activeKeys: computed(() => {
-        return instance.parent && instance.parent.exposed && instance.parent.exposed.value.value || [];
+        return panel.parent && panel.parent.exposed && panel.parent.exposed.value || [];
       }),
       activeClass: computed(() => {
-        return instance.parent && instance.parent.exposed && instance.parent.exposed.activeClass.value || 'collapse-panel-active';
+        return panel.parent && panel.parent.exposed && panel.parent.exposed.activeClass || 'collapse-panel-active';
       }),
       status: computed(() => {
         return panel.activeKeys.includes(panel.innerName);
@@ -48,8 +47,8 @@ export default {
     };
 
     function handleFixedClick() {
-    if (context.defaultClickAction) { toggle(); }
-  }
+      if (context.defaultClickAction) { toggle(); }
+    }
 
     function getContentHeight(el) {
     if (el.scrollHeight) return el.scrollHeight + 'px';
@@ -72,7 +71,16 @@ export default {
     const afterLeave = (el) => { el.style.height = '0px'; }
 
     onMounted(() => {
-      parent.value = instance.parent;
+      let p = instance.parent;
+      while (p) {
+        if (p && p.type.name !== 'Collapse') {
+          p = p.parent;
+        }
+        else {
+          panel.parent = p;
+          return;
+        }
+      }
     });
 
     return () => h('div', {
