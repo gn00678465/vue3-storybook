@@ -6,7 +6,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
 jobs: # a collection of steps
-  build: # runs not using Workflows must have a `build` job as entry point
+  test-unit: # runs not using Workflows must have a `build` job as entry point
     docker: # run the steps with Docker
       - image: circleci/node:latest
     steps:
@@ -37,4 +37,4 @@ jobs: # a collection of steps
 workflows:
   main:
     jobs:
-      - build
+      - test-unit
