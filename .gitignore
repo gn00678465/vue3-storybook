@@ -7,3 +7,5 @@ coverage
 .env.dev
 .env.prod
 .env.test
+
+__tests__/unit/__snapshots__/
